@@ -8,9 +8,6 @@ $fill: dodgerblue;
   width: $size;
   margin: 0 2em 2em;
   overflow: visible;
-  position: relative;
-  left: 28%;
-  top: 30px;
 
 @function transform($item: 1){
   $base: rotate(#{-$angle*$item}deg) translate(5px, 5px);
@@ -19,10 +16,10 @@ $fill: dodgerblue;
 
 .g__circle {
   transform-origin: $size/2 $size/2;
-  
+
   fill: $fill;
   animation: opacity 1.2s linear infinite;
-  
+
   @for $item from 1 through $max {
     &:nth-child(#{$max}n + #{$item}){
       animation-delay: -#{$item/10}s;
@@ -43,7 +40,7 @@ $fill: dodgerblue;
   75% {
     fill-opacity: 0;
   }
-  
+
 }
 
 @keyframes opacity_stroke {
@@ -53,7 +50,7 @@ $fill: dodgerblue;
   85% {
     stroke-opacity: 0;
   }
-  
+
 }
 
 @keyframes colors {

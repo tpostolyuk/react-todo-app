@@ -10,11 +10,11 @@ const TodoList = ({editTaskMessage, finishEditingTask, deleteTask, handleDoneTas
 
   useEffect(() => {
     getCompletedTasks(todos);
-  }, []);
+  }, [getCompletedTasks, todos]);
 
   const todoItems = todos.map(item => {
     return (
-      <TodoItem 
+      <TodoItem
         id={item.id}
         key={item.id}
         isEditable={item.isEditable}
@@ -24,13 +24,14 @@ const TodoList = ({editTaskMessage, finishEditingTask, deleteTask, handleDoneTas
         finishEditingTask={finishEditingTask}
         deleteTask={deleteTask}
         handleDoneTask={handleDoneTask}
-      /> 
+      />
     )
   })
+
   return (
     <div className={s['app-todo-list']}>
-      {isFetching ? <Preloader className={s['app-todo-list__prealoader']} /> : null}
-      {/* {todoItems} */}
+      {isFetching && <Preloader className={s['app-todo-list__preloader']} />}
+      {todoItems}
     </div>
   )
 }

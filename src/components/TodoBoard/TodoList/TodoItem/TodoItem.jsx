@@ -11,18 +11,20 @@ const TodoItem = ({isDone, isEditable, id, taskMessage, handleDoneTask, deleteTa
   function renderIfDefault() {
     return (
       <React.Fragment>
-        <Checkbox
-          checked={isDone}
-          onChange={() => handleDoneTask(id, isDone)}
-          value="secondary"
-          color="primary"
-          inputProps={{ 'aria-label': 'secondary checkbox' }}
-        />
-        <div className={s.taskTextContainer}>
-          <p className={`${s.taskMessage} ${isDone ? s.done : ''}`}>{taskMessage}</p>
+        <div className={s.leftPart}>
+          <Checkbox
+            checked={isDone}
+            onChange={() => handleDoneTask(id, isDone)}
+            value="secondary"
+            color="primary"
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
+          />
+          <div className={s.taskTextContainer}>
+            <p className={`${s.taskMessage} ${isDone ? s.done : ''}`}>{taskMessage}</p>
+          </div>
         </div>
         <div className={s.taskActionContainer}>
-          <span 
+          <span
             className={s.taskDeleteIcon}
             onClick={() => deleteTask(id)}>
             &#10006;
@@ -39,7 +41,7 @@ const TodoItem = ({isDone, isEditable, id, taskMessage, handleDoneTask, deleteTa
         <div className={s.editTaskInput}>
         <TextField
           onChange={e => setNewInputValue(e.target.value)}
-          id="standard-basic" 
+          id="standard-basic"
           label="Edit task..." />
         </div>
         <div className={s.taskActionContainer}>
@@ -58,7 +60,7 @@ const TodoItem = ({isDone, isEditable, id, taskMessage, handleDoneTask, deleteTa
       : (
         <div className={s.taskItemContainer}>
           {renderIfEditable()}
-        </div>) 
+        </div>)
   )
 }
 

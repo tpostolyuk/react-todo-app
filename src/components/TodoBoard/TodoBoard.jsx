@@ -23,8 +23,10 @@ export const TodoBoard = () => {
 
   const handleAddingTask = () => {
     if(inputTaskValue !== '') {
+      console.log('vale');
       dbRef.add({ todo: inputTaskValue, isEditable: false, isDone: false, description: descriptionValue })
         .then(ref => {
+          console.log('then');
           dbRef.doc(ref.id).update({ id: ref.id });
           dispatch(addTask({ id: ref.id, todo: inputTaskValue, isEditable: false, isDone: false, description: descriptionValue }))
         })
@@ -71,17 +73,17 @@ export const TodoBoard = () => {
   return (
     <div className={s.todoBoard}>
       <div className={s.boardWrapper}>
-        <TextField 
+        <TextField
           className={s.taskInpt}
-          onChange={e => setInputTaskValue(e.target.value)} 
-          id="outlined-basic" 
+          onChange={e => setInputTaskValue(e.target.value)}
+          id="outlined-basic"
           label="Type your task"
-          value={inputTaskValue} 
-          variant="outlined" 
+          value={inputTaskValue}
+          variant="outlined"
         />
-        <Button 
+        <Button
           onClick={handleAddingTask}
-          color="primary" 
+          color="primary"
           variant="contained">
           Add Task
         </Button>
@@ -89,7 +91,7 @@ export const TodoBoard = () => {
       <TextField
         className={s.descriptionInput}
         onChange={e => setDescriptionValue(e.target.value)}
-        variant="outlined" 
+        variant="outlined"
         label="Type your description"
         value={descriptionValue}
       />
