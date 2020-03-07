@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+
+.taskItemContainer {
+  font-family: 'Raleway', sans-serif;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+  align-items: center;
+}
+
+.taskTextContainer {
+  & > p {
+    font-size: 30px;
+    padding-bottom: 25px;
+ }
+}
+
+.taskMessage {
+  color: blue;
+  display: inline;
+  font-size: 35px;
+  cursor: pointer;
+}
+
+.taskActionContainer span {
+  font-size: 30px;
+  padding-left: 15px;
+  padding-top: 5px;
+}
+
+.done {
+  text-decoration: underline;
+  text-decoration-color: green;
+}

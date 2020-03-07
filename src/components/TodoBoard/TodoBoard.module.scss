@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css?family=Abel&display=swap');
+
+.todoBoard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  padding-top: 30px;
+  background: whitesmoke;
+  & > .boardWrapper {
+    display: flex;
+    justify-content: space-between;
+    & > .taskInpt {
+      margin-right: 30px;
+      width: 400px;
+    }
+  }
+  & > span {
+    width: 44px;
+  }
+  & > .todoFilter {
+    margin-top: 25px;
+  }
+
+  & > .descriptionInput {
+    width: 100%;
+    margin-top: 20px;
+  }
+  & > .todoCounter {
+    border-top: 2px solid rgb(54, 54, 54);
+    font-family: 'Abel', sans-serif;
+    margin-top: 50px;
+    & > p {
+      font-size: 30px;
+    }
+  }
+}

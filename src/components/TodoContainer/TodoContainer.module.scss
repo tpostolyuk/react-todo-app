@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Abel&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.todoContainer {
+  width: 100%;
+  height: 1000px;
+  background: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0 auto;
+  // TODO-HEADER
+  & > .todoHeader {
+    width: 600px;
+    height: 100px;
+    font-family: 'Abel', sans-serif;
+    text-align: center;
+    border-bottom: 3px solid black;
+  }
+  & > .todoBoard > :nth-child(2) {
+    margin-top: 30px;
+  }
+}
