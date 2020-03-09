@@ -30,7 +30,7 @@ const TodoList = ({editTaskMessage, finishEditingTask, deleteTask, handleDoneTas
   return (
     <div className={s['app-todo-list']}>
       {isFetching ? <Preloader className={s['app-todo-list__prealoader']} /> : null}
-      {/* {todoItems} */}
+      {todoItems}
     </div>
   )
 }

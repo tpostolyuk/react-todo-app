@@ -10,8 +10,7 @@ import { useDispatch } from 'react-redux';
 import { showActiveTasks, showCompletedTasks, getTasks } from '../../redux/actions/index';
 import { dbRef } from '../Firebase/firebase';
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+function TabPanel({ children, value, index, ...other }) {
 
   return (
     <Typography
