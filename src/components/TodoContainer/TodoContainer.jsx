@@ -1,21 +1,21 @@
-import React from 'react';
-import  s  from './TodoContainer.module.scss';
+import React, { useState } from 'react';
+import s from './TodoContainer.module.scss';
 import TodoBoard from '../TodoBoard/TodoBoard.jsx';
-import Switch from '@material-ui/core/Switch';
+import Button from '@material-ui/core/Button';
 
-export const TodoContainer = ({handleDarkMode}) => {
+export const TodoContainer = () => {
+  const [darkMode, setDarkMode] = useState(false);
   return (
-    <div className={s.todoContainer}>
+    <div className={s.todoContainer} id={darkMode ? s['dark-mode'] : ''}>
       <div className={s.todoHeader}>
-        <Switch
-          onChange={handleDarkMode}
-          value="checkedA"
-          inputProps={{ 'aria-label': 'secondary checkbox' }}
-        />
+        <Button variant="contained" color="primary"
+        onClick={() => setDarkMode(!darkMode)}>
+          Change the mode
+        </Button> 
         <h1>React To-Do App</h1>
       </div>
       <div className={s.todoBoard}>
-        <TodoBoard />
+        <TodoBoard darkMode={darkMode} />
       </div>
     </div>
   )

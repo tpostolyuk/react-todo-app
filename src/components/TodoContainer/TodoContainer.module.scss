@@ -14,6 +14,7 @@ body {
   justify-content: flex-start;
   align-items: center;
   margin: 0 auto;
+  transition: 2s all ease;
   // TODO-HEADER
   & > .todoHeader {
     width: 600px;
@@ -25,4 +26,14 @@ body {
   & > .todoBoard > :nth-child(2) {
     margin-top: 30px;
   }
+}
+
+#dark-mode {
+  transition: 2s all ease;
+  background-color: #817b7b;
+}
+
+#dark-mode h1 {
+  transition: 2s all ease-in-out;
+  color:#3f51b5;
 }
