@@ -86,14 +86,12 @@ export default function SimpleTabs() {
   }
 
   return (
-    // <div className={s.tabs}>
-      <AppBar position="static">
-        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-          <Tab onClick={() => getAllTasks()} label="All" {...a11yProps(0)} />
-          <Tab onClick={() => getCompletedTasks()} label="Completed" {...a11yProps(1)} />
-          <Tab onClick={() => getActiveTasks()} label="Active" {...a11yProps(2)} />
-        </Tabs>
-      </AppBar>
-    // </div>
+    <AppBar position="static">
+      <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+        <Tab onClick={() => getAllTasks()} label="All" {...a11yProps(0)} />
+        <Tab onClick={() => getCompletedTasks()} label="Completed" {...a11yProps(1)} />
+        <Tab onClick={() => getActiveTasks()} label="Active" {...a11yProps(2)} />
+      </Tabs>
+    </AppBar>
   );
 }

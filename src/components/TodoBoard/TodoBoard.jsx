@@ -23,10 +23,8 @@ export const TodoBoard = () => {
 
   const handleAddingTask = () => {
     if(inputTaskValue !== '') {
-      console.log('vale');
       dbRef.add({ todo: inputTaskValue, isEditable: false, isDone: false, description: descriptionValue })
         .then(ref => {
-          console.log('then');
           dbRef.doc(ref.id).update({ id: ref.id });
           dispatch(addTask({ id: ref.id, todo: inputTaskValue, isEditable: false, isDone: false, description: descriptionValue }))
         })

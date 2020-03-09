@@ -1,7 +1,7 @@
 $max: 12;
 $angle: 360/$max;
 $size: 120px;
-$fill: dodgerblue;
+$fill: #3f51b5;
 
 .canvas {
   height: $size;
@@ -41,40 +41,6 @@ $fill: dodgerblue;
     fill-opacity: 0;
   }
 
-}
-
-@keyframes opacity_stroke {
-  10% {
-    stroke-opacity: 1;
-  }
-  85% {
-    stroke-opacity: 0;
-  }
-
-}
-
-@keyframes colors {
-  0% {
-    fill: yellowgreen;
-    }
-  10% {
-    fill: gold;
-    }
-  75% {
-    fill: crimson;
-  }
-}
-
-@keyframes colors-stroke {
-  0% {
-    stroke: yellowgreen;
-    }
-  10% {
-    stroke: gold;
-    }
-  75% {
-    stroke: crimson;
-  }
 }
 
 @keyframes transform {
