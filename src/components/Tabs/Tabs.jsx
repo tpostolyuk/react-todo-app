@@ -9,6 +9,7 @@ import Box from '@material-ui/core/Box';
 import { useDispatch } from 'react-redux';
 import { showActiveTasks, showCompletedTasks, getTasks } from '../../redux/actions/index';
 import { dbRef } from '../Firebase/firebase';
+import './Tabs.css';
 
 function TabPanel({ children, value, index, ...other }) {
 
@@ -35,7 +36,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`
   };
 }
 
@@ -43,6 +44,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
+    justifyContent: 'space-between'
   },
 }));
 
@@ -84,7 +86,7 @@ export default function SimpleTabs() {
   }
 
   return (
-    <div className={classes.root}>
+    // <div className={s.tabs}>
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab onClick={() => getAllTasks()} label="All" {...a11yProps(0)} />
@@ -92,6 +94,6 @@ export default function SimpleTabs() {
           <Tab onClick={() => getActiveTasks()} label="Active" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
-    </div>
+    // </div>
   );
 }

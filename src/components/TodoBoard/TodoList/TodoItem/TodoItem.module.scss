@@ -17,6 +17,10 @@
  }
 }
 
+.leftPart {
+  display: flex;
+}
+
 .taskMessage {
   color: blue;
   display: inline;
