@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import  { Preloader } from '../../Preloader';
 import s from './TodoList.module.scss';
 
-const TodoList = ({editTaskMessage, finishEditingTask, deleteTask, handleDoneTask, getCompletedTasks, isFetching}) => {
+const TodoList = ({editTaskMessage, finishEditingTask, deleteTask, handleDoneTask, getCompletedTasks, isFetching, darkMode}) => {
   const todos  = useSelector(state => state.todos.taskList);
 
   useEffect(() => {
@@ -15,6 +15,7 @@ const TodoList = ({editTaskMessage, finishEditingTask, deleteTask, handleDoneTas
   const todoItems = todos.map(item => {
     return (
       <TodoItem
+        darkMode={darkMode}
         id={item.id}
         key={item.id}
         isEditable={item.isEditable}

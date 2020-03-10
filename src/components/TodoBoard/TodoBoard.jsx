@@ -12,7 +12,7 @@ import Tabs from '../Tabs/Tabs';
 
 toast.configure({ autoClose: false });
 
-export const TodoBoard = () => {
+export const TodoBoard = ({darkMode}) => {
   const isFetching = useSelector(state => state.todos.isFetching);
   const [inputTaskValue, setInputTaskValue] = useState('');
   const [descriptionValue, setDescriptionValue] = useState('');
@@ -97,6 +97,7 @@ export const TodoBoard = () => {
         <Tabs />
       </div>
         <TodoList
+          darkMode={darkMode}
           isFetching={isFetching}
           getCompletedTasks={getCompletedTasks}
           editTaskMessage={handleEditingTaskMessage}
@@ -104,7 +105,7 @@ export const TodoBoard = () => {
           deleteTask={handleDeletingTask}
           handleDoneTask={handleDoneTask}
         />
-      <div className={s.todoCounter}>
+      <div className={darkMode ? s['dark-mode-todoCounter'] : s.todoCounter}>
         <p className={s.counter}>{count <= 1 ? `${count} todo left` : `${count} todos left`}</p>
       </div>
     </div>
