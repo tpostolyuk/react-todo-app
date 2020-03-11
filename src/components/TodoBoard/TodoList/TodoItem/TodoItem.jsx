@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import Checkbox from '@material-ui/core/Checkbox';
 
-const TodoItem = ({isDone, isEditable, id, taskMessage, handleDoneTask, deleteTask, editTaskMessage, finishEditingTask}) => {
+const TodoItem = ({isDone, isEditable, id, taskMessage, handleDoneTask, deleteTask, editTaskMessage, finishEditingTask, darkMode}) => {
   const [newInputValue, setNewInputValue] = useState('');
 
   function renderIfDefault() {
@@ -20,7 +20,7 @@ const TodoItem = ({isDone, isEditable, id, taskMessage, handleDoneTask, deleteTa
             inputProps={{ 'aria-label': 'secondary checkbox' }}
           />
           <div className={s.taskTextContainer}>
-            <p className={`${s.taskMessage} ${isDone ? s.done : ''}`}>{taskMessage}</p>
+            <p id={darkMode ? s['dark-mode'] : ''} className={`${s.taskMessage} ${isDone ? s.done : ''}`}>{taskMessage}</p>
           </div>
         </div>
         <div className={s.taskActionContainer}>
