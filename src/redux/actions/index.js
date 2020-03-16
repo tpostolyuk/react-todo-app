@@ -1,1 +1,1 @@
-export { getTasks, addTask, editTask, confirmEditTask, removeTask, doneTask, showActiveTasks, showCompletedTasks, toggleIsFetching } from './taskActions';
+export { getTasks, addTask, editTask, confirmEditTask, removeTask, doneTask, showActiveTasks, showCompletedTasks } from './taskActions';

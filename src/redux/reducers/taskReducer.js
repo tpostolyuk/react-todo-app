@@ -1,8 +1,7 @@
-import { GET_TASKS, ADD_TASK, EDIT_TASK, REMOVE_TASK, CONFIRM_EDIT_TASK, DONE_TASK, SHOW_COMPLETED_TASKS, SHOW_ACTIVE_TASKS, TOGGLE_ISFETCHING } from '../types';
+import { GET_TASKS, ADD_TASK, EDIT_TASK, REMOVE_TASK, CONFIRM_EDIT_TASK, DONE_TASK, SHOW_COMPLETED_TASKS, SHOW_ACTIVE_TASKS } from '../types';
 
 const initState = {
   taskList: [],
-  isFetching: true
 };
 
 const taskReducer = (state = initState, action) => {
@@ -54,12 +53,6 @@ const taskReducer = (state = initState, action) => {
       return {
         ...state,
         taskList: payload
-      }
-    case TOGGLE_ISFETCHING:
-      return {
-        ...state,
-        isFetching: !state.isFetching
-
       }
     default: return state
   }

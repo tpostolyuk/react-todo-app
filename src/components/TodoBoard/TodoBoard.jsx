@@ -5,17 +5,16 @@ import Button from '@material-ui/core/Button';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TodoList from './TodoList/TodoList';
-import { useDispatch, useSelector } from 'react-redux';
-import { getTasks, addTask, editTask, removeTask, confirmEditTask, doneTask, toggleIsFetching } from '../../redux/actions/index';
+import { useDispatch } from 'react-redux';
+import { getTasks, addTask, editTask, removeTask, confirmEditTask, doneTask } from '../../redux/actions/index';
 import { dbRef } from '../Firebase/firebase';
 import Tabs from '../Tabs/Tabs';
 
 toast.configure({ autoClose: false });
 
 export const TodoBoard = ({darkMode}) => {
-  const isFetching = useSelector(state => state.todos.isFetching);
+  const [loading, setLoading] = useState(true);
   const [inputTaskValue, setInputTaskValue] = useState('');
-  const [descriptionValue, setDescriptionValue] = useState('');
   const [count, setCount] = useState(0);
   const dispatch = useDispatch();
   const notify = () => toast.error("A Field Should Be Filled");
@@ -23,13 +22,12 @@ export const TodoBoard = ({darkMode}) => {
 
   const handleAddingTask = () => {
     if(inputTaskValue !== '') {
-      dbRef.add({ todo: inputTaskValue, isEditable: false, isDone: false, description: descriptionValue })
+      dbRef.add({ todo: inputTaskValue, isEditable: false, isDone: false })
         .then(ref => {
           dbRef.doc(ref.id).update({ id: ref.id });
-          dispatch(addTask({ id: ref.id, todo: inputTaskValue, isEditable: false, isDone: false, description: descriptionValue }))
+          dispatch(addTask({ id: ref.id, todo: inputTaskValue, isEditable: false, isDone: false }))
         })
       setInputTaskValue('');
-      setDescriptionValue('');
     } else {
       notify();
     }
@@ -62,7 +60,7 @@ export const TodoBoard = ({darkMode}) => {
       const result = [];
       snap.forEach(doc => result.push({...doc.data(), id: doc.id}))
       dispatch(getTasks(result));
-      dispatch(toggleIsFetching());
+      setLoading(false);
     })
     .catch(err => console.log(err));
   }, [dispatch])
@@ -86,19 +84,12 @@ export const TodoBoard = ({darkMode}) => {
           Add Task
         </Button>
       </div>
-      <TextField
-        className={s.descriptionInput}
-        onChange={e => setDescriptionValue(e.target.value)}
-        variant="outlined"
-        label="Type your description"
-        value={descriptionValue}
-      />
       <div className={s.todoFilter}>
         <Tabs />
       </div>
         <TodoList
           darkMode={darkMode}
-          isFetching={isFetching}
+          loading={loading}
           getCompletedTasks={getCompletedTasks}
           editTaskMessage={handleEditingTaskMessage}
           finishEditingTask={handleFinishEditingTask}
