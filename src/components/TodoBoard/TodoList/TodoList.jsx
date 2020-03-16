@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import  { Preloader } from '../../Preloader';
 import s from './TodoList.module.scss';
 
-const TodoList = ({editTaskMessage, finishEditingTask, deleteTask, handleDoneTask, getCompletedTasks, isFetching, darkMode}) => {
+const TodoList = ({editTaskMessage, finishEditingTask, deleteTask, handleDoneTask, getCompletedTasks, loading, darkMode}) => {
   const todos  = useSelector(state => state.todos.taskList);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const TodoList = ({editTaskMessage, finishEditingTask, deleteTask, handleDoneTas
 
   return (
     <div className={s['app-todo-list']}>
-      {isFetching && <Preloader className={s['app-todo-list__preloader']} />}
+      {loading && <Preloader className={s['app-todo-list__preloader']} />}
       {todoItems}
     </div>
   )

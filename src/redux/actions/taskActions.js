@@ -1,5 +1,5 @@
 // import { createAction } from '@reduxjs/toolkit';
-import { GET_TASKS, ADD_TASK, EDIT_TASK, REMOVE_TASK, CONFIRM_EDIT_TASK, DONE_TASK, SHOW_COMPLETED_TASKS, SHOW_ACTIVE_TASKS, GET_ACTIVE_TASKS, TOGGLE_ISFETCHING} from '../types';
+import { GET_TASKS, ADD_TASK, EDIT_TASK, REMOVE_TASK, CONFIRM_EDIT_TASK, DONE_TASK, SHOW_COMPLETED_TASKS, SHOW_ACTIVE_TASKS, GET_ACTIVE_TASKS} from '../types';
 
 export const getTasks = payload => {
   return {
@@ -61,11 +61,5 @@ export const getActiveTasks = payload => {
   return {
     type: GET_ACTIVE_TASKS,
     payload
-  }
-}
-
-export const toggleIsFetching = () => {
-  return {
-    type: TOGGLE_ISFETCHING
   }
 }
