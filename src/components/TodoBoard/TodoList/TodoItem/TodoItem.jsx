@@ -14,7 +14,7 @@ const TodoItem = ({isDone, isEditable, id, taskMessage, handleDoneTask, deleteTa
         <div className={s.leftPart}>
           <Checkbox
             checked={isDone}
-            onChange={() => handleDoneTask(id, isDone)}
+            onChange={() => handleDoneTask({id: id, isDone: isDone})}
             value="secondary"
             color="primary"
             inputProps={{ 'aria-label': 'secondary checkbox' }}

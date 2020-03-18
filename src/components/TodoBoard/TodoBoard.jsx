@@ -5,28 +5,24 @@ import Button from '@material-ui/core/Button';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TodoList from './TodoList/TodoList';
-import { useDispatch } from 'react-redux';
-import { getTasks, addTask, editTask, removeTask, confirmEditTask, doneTask } from '../../redux/actions/index';
-import { dbRef } from '../Firebase/firebase';
-import Tabs from '../Tabs/Tabs';
+import { useDispatch, useSelector } from 'react-redux';
+import { editTask } from '../../redux/actions/index';
+import { fetchTasks, fetchAddingTask, fetchFinishEditingTask, fetchDeletingTask, fetchDoneTask } from '../../redux/actions/asyncTaskActions';
+import Select from '../Select/Select';
 
 toast.configure({ autoClose: false });
 
 export const TodoBoard = ({darkMode}) => {
-  const [loading, setLoading] = useState(true);
   const [inputTaskValue, setInputTaskValue] = useState('');
   const [count, setCount] = useState(0);
+  const loading = useSelector(state => state.todos.loading)
   const dispatch = useDispatch();
   const notify = () => toast.error("A Field Should Be Filled");
 
 
   const handleAddingTask = () => {
     if(inputTaskValue !== '') {
-      dbRef.add({ todo: inputTaskValue, isEditable: false, isDone: false })
-        .then(ref => {
-          dbRef.doc(ref.id).update({ id: ref.id });
-          dispatch(addTask({ id: ref.id, todo: inputTaskValue, isEditable: false, isDone: false }))
-        })
+      dispatch(fetchAddingTask(inputTaskValue));
       setInputTaskValue('');
     } else {
       notify();
@@ -34,35 +30,19 @@ export const TodoBoard = ({darkMode}) => {
   }
   const handleEditingTaskMessage = id => dispatch(editTask(id));
 
-  const handleFinishEditingTask = ({id, value}) => {
-    dbRef.doc(id).update({
-      todo: value, isEditable: false
-    })
-    .then(() => dispatch(confirmEditTask({id, value})))
-  }
-  const handleDeletingTask = id => {
-    dbRef.doc(id).delete()
-      .then(() => dispatch(removeTask(id)))
-  }
-  const handleDoneTask = (id, isCompleted) => {
-        dbRef.doc(id).update({id, isDone: !isCompleted })
-          .then(() => dispatch(doneTask(id)))
-          .catch(err => console.log(err));
-  }
+  const handleFinishEditingTask = ({id, value}) => dispatch(fetchFinishEditingTask({id, value}));
+
+  const handleDeletingTask = id => dispatch(fetchDeletingTask(id));
+
+  const handleDoneTask = ({id, isDone}) => dispatch(fetchDoneTask({id, isDone}));
+
   const getCompletedTasks = todos => {
     let completedTask = todos.filter(item => !item.isDone);
     setCount(completedTask.length);
   }
 
   useEffect(() => {
-    dbRef.get()
-    .then(snap => {
-      const result = [];
-      snap.forEach(doc => result.push({...doc.data(), id: doc.id}))
-      dispatch(getTasks(result));
-      setLoading(false);
-    })
-    .catch(err => console.log(err));
+    dispatch(fetchTasks());
   }, [dispatch])
 
 
@@ -85,7 +65,8 @@ export const TodoBoard = ({darkMode}) => {
         </Button>
       </div>
       <div className={s.todoFilter}>
-        <Tabs />
+        <Select />
+        {/* <Tabs /> */}
       </div>
         <TodoList
           darkMode={darkMode}

@@ -19,6 +19,8 @@
   }
   & > .todoFilter {
     margin-top: 25px;
+    display: flex;
+    justify-content: flex-start;
   }
 
   & > .descriptionInput {
@@ -47,8 +49,4 @@
       font-size: 30px;
       transition: 1s all ease;
     }
-}
-
-.dark-mode-todoList {
-  
 }

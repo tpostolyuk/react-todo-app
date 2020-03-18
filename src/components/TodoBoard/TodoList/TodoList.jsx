@@ -7,7 +7,6 @@ import s from './TodoList.module.scss';
 
 const TodoList = ({editTaskMessage, finishEditingTask, deleteTask, handleDoneTask, getCompletedTasks, loading, darkMode}) => {
   const todos  = useSelector(state => state.todos.taskList);
-
   useEffect(() => {
     getCompletedTasks(todos);
   }, [getCompletedTasks, todos]);
