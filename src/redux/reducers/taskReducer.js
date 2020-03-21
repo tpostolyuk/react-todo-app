@@ -8,6 +8,7 @@ import { EDIT_TASK, FETCH_TASKS_REQUEST,
          FETCH_SPECIFICALLY_TASKS_SUCCESS} from '../types';
 
 const initState = {
+  activeType: null,
   taskList: [],
   loading: false,
   error: null
@@ -16,6 +17,11 @@ const initState = {
 const taskReducer = (state = initState, action) => {
   const { payload } = action;
   switch(action.type) {
+    case 'CHANGE_TODO_ACTIVE_TYPE':
+      return {
+        ...state,
+        activeType: payload
+      }
     case EDIT_TASK:
       return { 
         ...state, 

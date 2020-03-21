@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import s from './TodoBoard.module.scss';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import TodoList from './TodoList/TodoList';
 import { useDispatch, useSelector } from 'react-redux';
 import { editTask } from '../../redux/actions/index';
-import { fetchTasks, fetchAddingTask, fetchFinishEditingTask, fetchDeletingTask, fetchDoneTask } from '../../redux/actions/asyncTaskActions';
+import { fetchAddingTask, fetchFinishEditingTask, fetchDeletingTask, fetchDoneTask } from '../../redux/actions/asyncTaskActions';
 import Select from '../Select/Select';
 
 toast.configure({ autoClose: false });
@@ -15,10 +15,9 @@ toast.configure({ autoClose: false });
 export const TodoBoard = ({darkMode}) => {
   const [inputTaskValue, setInputTaskValue] = useState('');
   const [count, setCount] = useState(0);
-  const loading = useSelector(state => state.todos.loading)
+  const loading = useSelector(state => state.todos.loading);
   const dispatch = useDispatch();
   const notify = () => toast.error("A Field Should Be Filled");
-
 
   const handleAddingTask = () => {
     if(inputTaskValue !== '') {
@@ -28,6 +27,7 @@ export const TodoBoard = ({darkMode}) => {
       notify();
     }
   }
+
   const handleEditingTaskMessage = id => dispatch(editTask(id));
 
   const handleFinishEditingTask = ({id, value}) => dispatch(fetchFinishEditingTask({id, value}));
@@ -40,11 +40,6 @@ export const TodoBoard = ({darkMode}) => {
     let completedTask = todos.filter(item => !item.isDone);
     setCount(completedTask.length);
   }
-
-  useEffect(() => {
-    dispatch(fetchTasks());
-  }, [dispatch])
-
 
   return (
     <div className={s.todoBoard}>
@@ -66,7 +61,6 @@ export const TodoBoard = ({darkMode}) => {
       </div>
       <div className={s.todoFilter}>
         <Select />
-        {/* <Tabs /> */}
       </div>
         <TodoList
           darkMode={darkMode}

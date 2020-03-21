@@ -4,16 +4,39 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { useDispatch } from 'react-redux';
-import { fetchTasks } from '../../redux/actions/asyncTaskActions';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpecificallyTasks } from '../../redux/actions/asyncFilterActions';
 
 const options = [
-  {value: 1, label: 'All'},
-  {value: 2, label: 'Active'},
-  {value: 3, label: 'Completed'}
-]
-const MenuItems = options.map(item => <MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>)
+  {
+    value: {
+      id: 1,
+      cond: null,
+    },
+    label: 'All'
+  
+  },
+  {
+    value: {
+      id: 2,
+      cond: false,
+      condition: ['isDone', '==', false]
+    },
+    label: 'Active'
+  
+  },
+  {
+    value: {
+      id: 3,
+      cond: true,
+      condition: ['isDone', '==', true]
+    },
+    label: 'Completed'
+  
+  },
+];
+
+const MenuItems = options.map(item => <MenuItem key={item.label} name='lol' value={item.value}>{item.label}</MenuItem>)
 
 const useStyles = makeStyles(theme => ({
   formControl: {minWidth: 120 },
@@ -21,22 +44,21 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function SimpleSelect() {
+  const selector = useSelector(state => {
+    return options.find(item => item.value.cond === state.todos.activeType).value;
+  });
+  console.log('selector', selector);
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [item, setItem] = useState(1);
+  const [item, setItem] = useState(options[1].value);
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
 
-  const handleChange = event => {
-    debugger;
-    console.log(item)
-    setItem(event.target.value);
-    console.log(item);
-  };
 
   useEffect(() => {
+    dispatch(fetchSpecificallyTasks());
     setLabelWidth(inputLabel.current.offsetWidth);
-  }, []);
+  }, [dispatch, item]);
 
   return (
     <FormControl variant="outlined" className={classes.formControl}>
@@ -46,8 +68,11 @@ export default function SimpleSelect() {
       <Select
         labelId="demo-simple-select-outlined-label"
         id="demo-simple-select-outlined"
-        value={item}
-        onChange={handleChange}
+        value={selector}
+        onChange={e => {
+          dispatch({ type: 'CHANGE_TODO_ACTIVE_TYPE', payload: e.target.value.cond })
+          setItem(e.target.value)
+        }}
         labelWidth={labelWidth}
       >
         {MenuItems}

@@ -6,7 +6,18 @@ import  { Preloader } from '../../Preloader';
 import s from './TodoList.module.scss';
 
 const TodoList = ({editTaskMessage, finishEditingTask, deleteTask, handleDoneTask, getCompletedTasks, loading, darkMode}) => {
-  const todos  = useSelector(state => state.todos.taskList);
+  const todos  = useSelector(state => {
+    if (state.todos.activeType === null) {
+      return state.todos.taskList;
+    } else {
+      if (state.todos.activeType) {
+        return state.todos.taskList.filter(i => i.isDone);
+      } else {
+        return state.todos.taskList.filter(i => !i.isDone);
+      }
+    }
+  });
+  
   useEffect(() => {
     getCompletedTasks(todos);
   }, [getCompletedTasks, todos]);

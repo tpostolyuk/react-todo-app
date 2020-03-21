@@ -9,10 +9,8 @@ const fetchFailure = payload => {
   }
 }
 
-const fetchTaskRequest = () => {
-  return {
-    type: FETCH_TASKS_REQUEST
-  }
+const fetchTasksRequest = () => {
+  return {type: FETCH_TASKS_REQUEST}
 }
 
 const fetchSpecificallyTasksSuccess = payload => {
@@ -22,10 +20,11 @@ const fetchSpecificallyTasksSuccess = payload => {
   }
 }
 
-export const fetchSpecificallyTasks = (bool) => {
+export const fetchSpecificallyTasks = (condition = []) => {
+  const db = condition.length ? dbRef.where(...condition) : dbRef;
   return dispatch => {
-    dispatch(fetchTaskRequest());
-    dbRef.where('isDone', '==', bool).get()
+    dispatch(fetchTasksRequest());
+    db.get()
       .then(snap => {
         const result = [];
         snap.forEach(doc => result.push({...doc.data()}))
