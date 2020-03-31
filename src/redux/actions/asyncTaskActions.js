@@ -102,53 +102,64 @@ const fetchDoneTaskFailure = payload => {
 }
 
 export const fetchTasks = () => {
-  return dispatch => {
-    dispatch(fetchTasksRequest());
-    dbRef.get()
-      .then(snap => {
-        const result = [];
-        snap.forEach(doc => result.push({...doc.data(), id: doc.id}))
-        dispatch(fetchTasksSuccess(result));
-      })
-      .catch(e => dispatch(fetchTasksFailure(e.message)));
+  return async dispatch => {
+    try {
+    await dispatch(fetchTasksRequest());
+    const response = await dbRef.get()
+    const result = [];
+    await response.forEach(doc => result.push({...doc.data(), id: doc.id}));
+    await dispatch(fetchTasksSuccess(result));
+  } catch {
+    await dispatch(fetchTasksFailure(new Error('Error in fetch tasks')));
+  }
   }
 }
 
 export const fetchAddingTask = payload => {
-  return dispatch => {
-    dispatch(fetchAddingTaskRequest());
-    dbRef.add({ todo: payload, isEditable: false, isDone: false })
-      .then(ref => {
-        dbRef.doc(ref.id).update({ id: ref.id })
-        dispatch(fetchAddingTaskSuccess({ id: ref.id, todo: payload, isEditable: false, isDone: false }))
-      })
-      .catch(e => dispatch(fetchAddingTaskFailure(e.message)));
+  return async dispatch => {
+    try {
+      await dispatch(fetchAddingTaskRequest());
+      const response = await dbRef.add({ todo: payload.todo, description: payload.description, isEditable: false, isDone: false });
+      await dbRef.doc(response.id).update({ id: response.id });
+      await dispatch(fetchAddingTaskSuccess({ id: response.id, todo: payload.todo, description: payload.description, isEditable: false, isDone: false }))
+    } catch {
+      await dispatch(fetchAddingTaskFailure(new Error('Error in fetch adding task')));
+    }
   }
 }
 
 export const fetchFinishEditingTask = payload => {
-  return dispatch => {
-    dispatch(fetchFinishEditingTaskRequest());
-    dbRef.doc(payload.id).update({todo: payload.value, isEditable: false})
-    .then(() => dispatch(fetchFinishEditingTaskSuccess({id: payload.id, value: payload.value})))
-    .catch(e => fetchFinishEditingTaskFailure(e.message))
+  return async dispatch => {
+    try {
+      await dispatch(fetchFinishEditingTaskRequest());
+      await dbRef.doc(payload.id).update({todo: payload.value, isEditable: false});
+      await dispatch(fetchFinishEditingTaskSuccess({id: payload.id, value: payload.value}));
+    } catch {
+      fetchFinishEditingTaskFailure(new Error('smth goes wrong'));
+    }
   }
 }
 
 export const fetchDeletingTask = payload => {
-  return dispatch => {
-    dispatch(fetchDeletingTaskRequest());
-    dbRef.doc(payload).delete()
-      .then(() => dispatch(fetchDeletingTaskSuccess(payload)))
-      .catch(e => dispatch(fetchDeletingTaskFailure(e.message))); 
+  return async dispatch => {
+    try {
+    await dispatch(fetchDeletingTaskRequest());
+    await dbRef.doc(payload).delete();
+    await dispatch(fetchDeletingTaskSuccess(payload));
+    } catch {
+      dispatch(fetchDeletingTaskFailure(new Error('Error in fetch deleting task')))
+    }
   }
 }
 
 export const fetchDoneTask = payload => {
-  return dispatch => {
-    dispatch(fetchDoneTaskRequest());
-    dbRef.doc(payload.id).update({id: payload.id, isDone: !payload.isDone})
-          .then(() => dispatch(fetchDoneTaskSuccess(payload.id)))
-          .catch(e => dispatch(fetchDoneTaskFailure(e.message)));
+  return async dispatch => {
+    try {
+      await dispatch(fetchDoneTaskRequest());
+      await dbRef.doc(payload.id).update({id: payload.id, isDone: !payload.isDone});
+      await dispatch(fetchDoneTaskSuccess(payload.id));
+    } catch {
+      await dispatch(fetchDoneTaskFailure(new Error('Error in fetch done task')));
+    }
   }
 }

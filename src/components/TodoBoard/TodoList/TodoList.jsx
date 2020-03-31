@@ -3,11 +3,13 @@ import TodoItem from './TodoItem/TodoItem';
 import PropTypes from 'prop-types';
 import  { Preloader } from '../../Preloader';
 import s from './TodoList.module.scss';
+import { Modal } from '../../Modal/Modal';
 
 const TodoList = memo(({editTaskMessage, finishEditingTask, deleteTask, handleDoneTask, todos, loading, darkMode}) => {
 
   const todoItems = todos.map(item => {
     return (
+      <React.Fragment key={item.id}>
       <TodoItem
         darkMode={darkMode}
         id={item.id}
@@ -20,6 +22,8 @@ const TodoList = memo(({editTaskMessage, finishEditingTask, deleteTask, handleDo
         deleteTask={deleteTask}
         handleDoneTask={handleDoneTask}
       />
+      <Modal title={item.todo} description={item.description} />
+      </React.Fragment>
     )
   })
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import s from './TodoBoard.module.scss';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -12,14 +12,15 @@ import Select from '../Select/Select';
 
 toast.configure({ autoClose: false });
 
-export const TodoBoard = (({ darkMode }) => {
+export const TodoBoard = memo((({ darkMode }) => {
   const [inputTaskValue, setInputTaskValue] = useState('');
+  const [descriptionTaskValue, setDescriptionTaskValue] = useState('');
   const [count, setCount] = useState(0);
+
   const dispatch = useDispatch();
   const loading = useSelector(state => state.todos.loading);
   const notify = () => toast.error("A Field Should Be Filled");
-  console.log('[TodoBoard]')
-   
+
   const todos  = useSelector(
     state => {
       if (state.todos.activeType === null) {
@@ -35,7 +36,7 @@ export const TodoBoard = (({ darkMode }) => {
 
   const handleAddingTask = () => {
     if(inputTaskValue !== '') {
-      dispatch(fetchAddingTask(inputTaskValue));
+      dispatch(fetchAddingTask({todo: inputTaskValue, description: descriptionTaskValue}));
       setInputTaskValue('');
     } else {
       notify();
@@ -83,6 +84,14 @@ export const TodoBoard = (({ darkMode }) => {
           Add Task
         </Button>
       </div>
+      <TextField
+          className={s.taskDescription}
+          onChange={e => setDescriptionTaskValue(e.target.value)}
+          id="outlined-basic"
+          label="Type description"
+          value={descriptionTaskValue}
+          variant="outlined"
+        />
       <div className={s.todoFilter}>
         <Select />
       </div>
@@ -100,6 +109,6 @@ export const TodoBoard = (({ darkMode }) => {
       </div>
     </div>
   )
-});
+}));
 
 export default TodoBoard;
