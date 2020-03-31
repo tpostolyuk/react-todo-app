@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import s from './TodoBoard.module.scss';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -10,19 +10,28 @@ import { editTask } from '../../redux/actions/index';
 import { fetchAddingTask, fetchFinishEditingTask, fetchDeletingTask, fetchDoneTask } from '../../redux/actions/asyncTaskActions';
 import Select from '../Select/Select';
 
-import { completedTasks } from '../../Selectors/Selectors';
-
 toast.configure({ autoClose: false });
 
-export const TodoBoard = ({darkMode}) => {
+export const TodoBoard = (({ darkMode }) => {
   const [inputTaskValue, setInputTaskValue] = useState('');
-  console.log('TODO BOARD');
   const [count, setCount] = useState(0);
-  const completedTask = useSelector(completedTasks);
-  console.log(completedTask);
-  const loading = useSelector(state => state.todos.loading);
   const dispatch = useDispatch();
+  const loading = useSelector(state => state.todos.loading);
   const notify = () => toast.error("A Field Should Be Filled");
+  console.log('[TodoBoard]')
+   
+  const todos  = useSelector(
+    state => {
+      if (state.todos.activeType === null) {
+        return state.todos.taskList;
+      } else {
+        if (state.todos.activeType) {
+          return state.todos.taskList.filter(i => i.isDone);
+        } else {
+          return state.todos.taskList.filter(i => !i.isDone);
+        }
+      }
+  });
 
   const handleAddingTask = () => {
     if(inputTaskValue !== '') {
@@ -33,6 +42,16 @@ export const TodoBoard = ({darkMode}) => {
     }
   }
 
+  const getCompletedTasks = todos => {
+    let finishedTask = todos.filter(item => !item.isDone);
+    setCount(finishedTask.length);
+  }
+
+  useEffect(() => {
+    getCompletedTasks(todos);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleEditingTaskMessage = id => dispatch(editTask(id));
 
   const handleFinishEditingTask = ({id, value}) => dispatch(fetchFinishEditingTask({id, value}));
@@ -40,11 +59,6 @@ export const TodoBoard = ({darkMode}) => {
   const handleDeletingTask = id => dispatch(fetchDeletingTask(id));
 
   const handleDoneTask = ({id, isDone}) => dispatch(fetchDoneTask({id, isDone}));
-
-  const getCompletedTasks = todos => {
-    let completedTask = todos.filter(item => !item.isDone);
-    setCount(completedTask.length);
-  }
 
   return (
     <div className={s.todoBoard}>
@@ -75,7 +89,7 @@ export const TodoBoard = ({darkMode}) => {
         <TodoList
           darkMode={darkMode}
           loading={loading}
-          getCompletedTasks={getCompletedTasks}
+          todos={todos}
           editTaskMessage={handleEditingTaskMessage}
           finishEditingTask={handleFinishEditingTask}
           deleteTask={handleDeletingTask}
@@ -86,6 +100,6 @@ export const TodoBoard = ({darkMode}) => {
       </div>
     </div>
   )
-}
+});
 
 export default TodoBoard;

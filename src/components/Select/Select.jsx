@@ -57,7 +57,8 @@ export default function SimpleSelect() {
   useEffect(() => {
     dispatch(fetchSpecificallyTasks());
     setLabelWidth(inputLabel.current.offsetWidth);
-  }, [dispatch, item]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [item]);
 
   return (
     <FormControl variant="outlined" className={classes.formControl}>
