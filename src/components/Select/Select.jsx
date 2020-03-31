@@ -47,7 +47,6 @@ export default function SimpleSelect() {
   const selector = useSelector(state => {
     return options.find(item => item.value.cond === state.todos.activeType).value;
   });
-  console.log('selector', selector);
   const dispatch = useDispatch();
   const classes = useStyles();
   const [item, setItem] = useState(options[1].value);

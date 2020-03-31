@@ -10,11 +10,16 @@ import { editTask } from '../../redux/actions/index';
 import { fetchAddingTask, fetchFinishEditingTask, fetchDeletingTask, fetchDoneTask } from '../../redux/actions/asyncTaskActions';
 import Select from '../Select/Select';
 
+import { completedTasks } from '../../Selectors/Selectors';
+
 toast.configure({ autoClose: false });
 
 export const TodoBoard = ({darkMode}) => {
   const [inputTaskValue, setInputTaskValue] = useState('');
+  console.log('TODO BOARD');
   const [count, setCount] = useState(0);
+  const completedTask = useSelector(completedTasks);
+  console.log(completedTask);
   const loading = useSelector(state => state.todos.loading);
   const dispatch = useDispatch();
   const notify = () => toast.error("A Field Should Be Filled");
@@ -51,6 +56,11 @@ export const TodoBoard = ({darkMode}) => {
           label="Type your task"
           value={inputTaskValue}
           variant="outlined"
+          onKeyPress={event => {
+            if(event.key === "Enter") {
+              handleAddingTask();
+            }
+          }}
         />
         <Button
           onClick={handleAddingTask}
