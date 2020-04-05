@@ -5,7 +5,7 @@ import logger from 'redux-logger';
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: [ thunk]
+  middleware: [thunk]
 })
 
 export default store;

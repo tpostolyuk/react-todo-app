@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import s from './TodoContainer.module.scss';
-import TodoBoard from '../TodoBoard/TodoBoard.jsx';
+import { TodoBoard } from '../TodoBoard/TodoBoard.jsx';
 import Button from '@material-ui/core/Button';
 
 export const TodoContainer = () => {
@@ -21,5 +21,3 @@ export const TodoContainer = () => {
     </div>
   )
 }
-
-export default TodoContainer;

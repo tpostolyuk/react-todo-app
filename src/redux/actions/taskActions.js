@@ -1,10 +1,6 @@
 import { EDIT_TASK } from '../types';
 
-export const editTask = payload => {
-  return {
-    type: EDIT_TASK,
-    payload
-  }
-}
-
-
+export const editTask = payload => ({
+  type: EDIT_TASK,
+  payload
+})
