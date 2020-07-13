@@ -41,15 +41,3 @@
     }
   }
 }
-
-.dark-mode-todoCounter {
-  transition: 1s all ease;
-  border-top: 2px solid black;
-  font-family: 'Abel', sans-serif;
-    margin-top: 50px;
-    & > p {
-      color: #d6d7ef;
-      font-size: 30px;
-      transition: 1s all ease;
-    }
-}

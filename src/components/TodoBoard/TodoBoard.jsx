@@ -12,7 +12,7 @@ import Select from '../Select/Select';
 
 toast.configure({ autoClose: false });
 
-export const TodoBoard = ({ darkMode }) => {
+export const TodoBoard = () => {
   const [inputTaskValue, setInputTaskValue] = useState('');
   const [descriptionTaskValue, setDescriptionTaskValue] = useState('');
   const [count, setCount] = useState(0);
@@ -91,7 +91,6 @@ export const TodoBoard = ({ darkMode }) => {
         <Select />
       </div>
         <TodoList
-          darkMode={darkMode}
           loading={loading}
           todos={todos}
           editTaskMessage={handleEditingTaskMessage}
@@ -99,7 +98,7 @@ export const TodoBoard = ({ darkMode }) => {
           deleteTask={handleDeletingTask}
           handleDoneTask={handleDoneTask}
         />
-      <div className={darkMode ? s['dark-mode-todoCounter'] : s.todoCounter}>
+      <div className={s.todoCounter}>
         <p className={s.counter}>{count <= 1 ? `${count} todo left` : `${count} todos left`}</p>
       </div>
     </div>

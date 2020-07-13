@@ -5,13 +5,12 @@ import  { Preloader } from '../../Preloader';
 import s from './TodoList.module.scss';
 import { Modal } from '../../Modal/Modal';
 
-const TodoList = memo(({editTaskMessage, finishEditingTask, deleteTask, handleDoneTask, todos, loading, darkMode}) => {
+const TodoList = memo(({ editTaskMessage, finishEditingTask, deleteTask, handleDoneTask, todos, loading }) => {
 
   const todoItems = todos.map(item => {
     return (
       <React.Fragment key={item.id}>
       <TodoItem
-        darkMode={darkMode}
         id={item.id}
         key={item.id}
         isEditable={item.isEditable}

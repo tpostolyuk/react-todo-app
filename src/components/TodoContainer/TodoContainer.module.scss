@@ -7,7 +7,7 @@ body {
 
 .todoContainer {
   width: 100%;
-  height: 1000px;
+  height: 700px;
   background: whitesmoke;
   display: flex;
   flex-direction: column;
@@ -30,14 +30,4 @@ body {
   & > .todoBoard > :nth-child(2) {
     margin-top: 30px;
   }
-}
-
-#dark-mode {
-  transition: 1s all ease;
-  background-color: #666666;
-}
-
-#dark-mode h1 {
-  transition: 1s all ease-in-out;
-  color:#d6d7ef;
 }
