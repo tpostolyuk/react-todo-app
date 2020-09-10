@@ -1,11 +1,9 @@
-import React from 'react';
-import { useState } from 'react';
-import s from './TodoItem.module.scss';
-import TextField from '@material-ui/core/TextField';
-import PropTypes from 'prop-types';
-import Checkbox from '@material-ui/core/Checkbox';
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import s from './TodoItem.module.scss'
+import { TextField, Checkbox } from '@material-ui/core'
 
-const TodoItem = ({ isDone, isEditable, id, taskMessage, handleDoneTask, deleteTask, editTaskMessage, finishEditingTask }) => {
+export const TodoItem = ({ isDone, isEditable, id, taskMessage, handleDoneTask, deleteTask, editTaskMessage, finishEditingTask }) => {
   const [newInputValue, setNewInputValue] = useState('');
 
   function renderIfDefault() {
@@ -14,7 +12,7 @@ const TodoItem = ({ isDone, isEditable, id, taskMessage, handleDoneTask, deleteT
         <div className={s.leftPart}>
           <Checkbox
             checked={isDone}
-            onChange={() => handleDoneTask({id: id, isDone: isDone})}
+            onChange={() => handleDoneTask({ id, isDone })}
             value="secondary"
             color="primary"
             inputProps={{ 'aria-label': 'secondary checkbox' }}
@@ -73,6 +71,3 @@ TodoItem.propTypes = {
   deleteTask: PropTypes.func.isRequired,
   handleDoneTask: PropTypes.func.isRequired,
 }
-
-
-export default TodoItem;

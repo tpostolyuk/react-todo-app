@@ -1,6 +1,6 @@
-import React from 'react';
-import s from './TodoContainer.module.scss';
-import { TodoBoard } from '../TodoBoard/TodoBoard.jsx';
+import React from 'react'
+import s from './TodoContainer.module.scss'
+import { TodoBoard } from '../TodoBoard'
 
 export const TodoContainer = () => {
   return (

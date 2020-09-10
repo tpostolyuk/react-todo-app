@@ -1,15 +1,12 @@
-import React, { memo } from 'react';
-import TodoItem from './TodoItem/TodoItem';
-import PropTypes from 'prop-types';
-import  { Preloader } from '../../Preloader';
-import s from './TodoList.module.scss';
-import { Modal } from '../../Modal/Modal';
+import React, { memo } from 'react'
+import PropTypes from 'prop-types'
+import s from './TodoList.module.scss'
+import { TodoItem } from './TodoItem'
+import { Preloader } from '../../Preloader'
 
-const TodoList = memo(({ editTaskMessage, finishEditingTask, deleteTask, handleDoneTask, todos, loading }) => {
-
+export const TodoList = memo(({ editTaskMessage, finishEditingTask, deleteTask, handleDoneTask, todos, loading }) => {
   const todoItems = todos.map(item => {
     return (
-      <React.Fragment key={item.id}>
       <TodoItem
         id={item.id}
         key={item.id}
@@ -21,8 +18,6 @@ const TodoList = memo(({ editTaskMessage, finishEditingTask, deleteTask, handleD
         deleteTask={deleteTask}
         handleDoneTask={handleDoneTask}
       />
-      <Modal title={item.todo} description={item.description} />
-      </React.Fragment>
     )
   })
 
@@ -39,5 +34,3 @@ TodoList.propTypes = {
   deleteTask: PropTypes.func.isRequired,
   handleDoneTask: PropTypes.func.isRequired,
 }
-
-export default TodoList;

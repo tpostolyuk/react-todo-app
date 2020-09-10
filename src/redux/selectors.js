@@ -1,6 +1,6 @@
-import { createSelector } from './node_modules/reselect';
+import { createSelector } from './node_modules/reselect'
 
-export const selectAllTasks = state => state.todos.taskList;
+export const selectAllTasks = state => state.todos.taskList
 
 export const completedTasks = createSelector(
   selectAllTasks,
